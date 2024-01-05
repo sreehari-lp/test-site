@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Task View & Code Release</title>
+    <!-- Bootstrap CSS CDN -->
+    <link
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
+      rel="stylesheet"
+    />
+
+    <style>
+      /* Your existing CSS styles */
+      body {
+        font-family: Arial, sans-serif;
+        padding-top: 20px;
+        background-color: #f7f7f7;
+        color: #470f4a;
+      }
+      h1 {
+        text-align: center;
+        font-size: 40px;
+        margin-bottom: 20px;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        font-weight: bold;
+      }
+      h2 {
+        font-size: 15px;
+        margin-bottom: 10px;
+        text-transform: uppercase;
+        font-weight: bold;
+        font-size: 25px;
+        text-align: center;
+      }
+      .task-table th,
+      .task-table td {
+        overflow: hidden;
+        word-wrap: break-word;
+      }
+      .notice-board {
+        background-color: #f9f9f9;
+        border: 1px solid #ddd;
+        padding: 20px;
+        margin-bottom: 20px;
+      }
+      .download-link {
+        display: block;
+        margin-top: 10px;
+      }
+      /* Custom styles for the headings */
+      .heading-center {
+        text-align: center;
+        margin-bottom: 30px;
+      }
+      .release-box {
+        background-color: #f9f9f9;
+        border: 1px solid #ddd;
+        padding: 15px;
+        margin-bottom: 20px;
+      }
+      .btn-custom {
+        background-color: #470f4a;
+        color: #ffffff;
+        border-radius: 5px;
+        text-transform: uppercase;
+        font-weight: bold;
+        font-size: 1.2rem;
+        padding: 10px 20px;
+        margin-top: 20px;
+        border: none;
+      }
+      .btn-custom:hover {
+        background-color: #5d1478; /* Darker shade of the primary color on hover */
+      }
+      .aicloud-heading {
+        text-align: center;
+        margin-bottom: 20px;
+        font-weight: bold;
+        font-size: 36px;
+        color: #470f4a;
+        text-decoration: underline;
+      }
+      .page-number {
+        display: inline-block;
+        width: 30px;
+        height: 30px;
+        border: 1px solid #000;
+        text-align: center;
+        line-height: 30px;
+        margin: 0 5px;
+        cursor: pointer;
+      }
+      section {
+        margin-top: -10px;
+      }
+      .table,
+      .testarea {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+      #customers {
+        font-family: Arial, Helvetica, sans-serif;
+        border-collapse: collapse;
+        width: 90%;
+      }
+
+      #customers td,
+      #customers th {
+        border: 1px solid #ddd;
+        padding: 8px;
+      }
+
+      #customers tr:nth-child(even) {
+        background-color: #f2f2f2;
+      }
+
+      #customers tr:hover {
+        background-color: #ddd;
+      }
+
+      #customers th {
+        padding-top: 12px;
+        padding-bottom: 12px;
+        text-align: left;
+        background-color: #470f4a;
+        color: white;
+        text-align: center;
+      }
+      textarea {
+        resize: none;
+        width: 90%;
+      }
+      .button {
+        float: right;
+        margin-right: 5%;
+      }
+      .select {
+        margin-left: 5%;
+        margin-top: 2%;
+      }
+      button {
+        background-color: #04aa6d;
+        border: none;
+        color: white;
+        padding: 8px 8px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 12px;
+        margin: 4px 2px;
+        cursor: pointer;
+        border-radius: 4px;
+      }
+      /* Styles the select element */
+      #statusinput {
+        padding: 8px;
+        font-size: 16px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        width: 200px;
+      }
+
+      /* Styles the options within the select element */
+      #statusinput option {
+        background-color: white;
+        color: black;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-12">
+          <br />
+          <center>
+            <img
+              src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjcwIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA2MzggMTA3LjUxIj48ZGVmcz48c3R5bGU+LmNscy0xe2ZpbGw6IzQ3MGY0YTtmaWxsLXJ1bGU6ZXZlbm9kZDt9PC9zdHlsZT48L2RlZnM+PGcgaWQ9IkxheWVyXzIiIGRhdGEtbmFtZT0iTGF5ZXIgMiI+PGcgaWQ9IkxheWVyXzEtMiIgZGF0YS1uYW1lPSJMYXllciAxIj48cGF0aCBjbGFzcz0iY2xzLTEiIGQ9Ik01ODQuMjUsMEE1My43Niw1My43NiwwLDAsMSw2MzgsNTMuNzVsLTUzLjc1LDUzLjc2QTUzLjc2LDUzLjc2LDAsMCwwLDYzOCw1My43NUw1ODQuMjUsMFpNNTY3Ljc4LDEwNC45M0E1My45Myw1My45MywwLDAsMSw1MzcuNDQsODAuMmg1NS4wN2wtMjQuNzMsMjQuNzNaTTUzMi4xNyw2Ny4xMmE1NCw1NCwwLDAsMSwwLTI2LjczaDczLjQyTDYxOSw1My43NSw2MDUuNTksNjcuMTJabTUuMjctMzkuODJBNTQsNTQsMCwwLDEsNTY3Ljc4LDIuNTdMNTkyLjUxLDI3LjNaIi8+PHBhdGggY2xhc3M9ImNscy0xIiBkPSJNNDQuMTMsNzkuODJWNjYuNDdIMTQuNzlWMTYuMDhIMFY3OS44MlptNjMtMjUuNjVWNTRhMjUuNzQsMjUuNzQsMCwwLDAtMi4xMS0xMC40MiwyNi40MywyNi40MywwLDAsMC01LjgxLTguNDYsMjcsMjcsMCwwLDAtOC43OS01LjY2LDMwLjUsMzAuNSwwLDAsMC0yMi4xOSwwLDI3Ljc4LDI3Ljc4LDAsMCwwLTguODQsNS43NywyNi40MywyNi40MywwLDAsMC01Ljg2LDguNSwyNS43OCwyNS43OCwwLDAsMC0yLjExLDEwLjQydi4xOWEyNS43NCwyNS43NCwwLDAsMCwyLjExLDEwLjQyLDI2LjQzLDI2LjQzLDAsMCwwLDUuODEsOC40NiwyNywyNywwLDAsMCw4Ljc5LDUuNjYsMjkuMDksMjkuMDksMCwwLDAsMTEsMi4wNywyOC43NSwyOC43NSwwLDAsMCwxMS4xNC0yLjExLDI3LjY3LDI3LjY3LDAsMCwwLDguODQtNS43NywyNi40MywyNi40MywwLDAsMCw1Ljg2LTguNSwyNS43OCwyNS43OCwwLDAsMCwyLjExLTEwLjQyWm0tMTQuNDEuMTlhMTYsMTYsMCwwLDEtLjkxLDUuNDMsMTMuMzYsMTMuMzYsMCwwLDEtMi42NCw0LjQ3LDEyLjMzLDEyLjMzLDAsMCwxLTQuMTgsMywxMy40OSwxMy40OSwwLDAsMS01LjYyLDEuMTEsMTIuNzcsMTIuNzcsMCwwLDEtNS41Mi0xLjE2LDEzLjcyLDEzLjcyLDAsMCwxLTcuMDYtNy42MywxNS4yOCwxNS4yOCwwLDAsMS0xLTUuNDNWNTRhMTYsMTYsMCwwLDEsLjkxLTUuNDMsMTMuNDYsMTMuNDYsMCwwLDEsMi42NC00LjQ3LDEyLjMzLDEyLjMzLDAsMCwxLDQuMTgtM0ExMy40OSwxMy40OSwwLDAsMSw3OS4yMiw0MGExMi45MSwxMi45MSwwLDAsMSw1LjQ4LDEuMTZBMTMuNTksMTMuNTksMCwwLDEsODksNDQuMjNhMTMuNzksMTMuNzksMCwwLDEsMi43OCw0LjUxLDE1LjI4LDE1LjI4LDAsMCwxLDEsNS40M3YuMTlabTc4Ljc5LDEzLjgzVjI3LjU4SDE1N3Y3LjQ4YTM4LjM2LDM4LjM2LDAsMCwwLTcuODktNi41NGMtMTQuOC04LjUxLTMzLDUuNTYtMzMsMjIuODZ2LjJjMCwxMy41Miw5LjcxLDI0LDIzLjU1LDI0LDcuMzksMCwxMi45MS0yLjc1LDE3LjU2LTguMzZ2Mi41YzAsOS43MS01LjIzLDE1LjQ2LTE0LjcsMTUuNDYtNi41MywwLTExLjY5LTIuMDktMTcuMzgtNS4ybC01LDExYTQ5LjE1LDQ5LjE1LDAsMCwwLDIyLjc3LDUuODdjMTksMCwyOC43Mi05LDI4LjcyLTI4LjYyWm0tMTUtMTYuNjFjMCw3LjEyLTUuNzEsMTEuOTEtMTIuNzcsMTEuOTFzLTEzLjE4LTQuNjEtMTMuMTgtMTEuOTF2LS4yYTEzLDEzLDAsMCwxLDEyLjg2LTEzLDEzLjE3LDEzLjE3LDAsMCwxLDEzLjA5LDEzdi4yWm00Mi4zNCwyOC4yNFYyNy41OGgtMTQuNlY3OS44MlpNMjU5LDcxLjU2bC04LjU1LTguNjVhMTkuNTIsMTkuNTIsMCwwLDEtMTMuMDYsNS40OEMyMjkuMyw2OC4zOSwyMjQsNjEsMjI0LDUzLjN2LS4yYzAtNy4yNCw1LjE3LTE0LjQsMTIuODYtMTQuNGExNy42NywxNy42NywwLDAsMSwxMyw1LjY3bDguOTMtOS42Yy01LjY5LTYuMjktMTMuNDEtOC42NS0yMS44LTguNjVBMjcuMDUsMjcuMDUsMCwwLDAsMjA5LjU3LDUzLjN2LjE5QTI3LjQxLDI3LjQxLDAsMCwwLDIzNi43NSw4MUMyNDUuNjYsODEsMjUzLjA2LDc4LjEzLDI1OSw3MS41NloiLz48cGF0aCBjbGFzcz0iY2xzLTEiIGQ9Ik0zMjYuMzksMzkuMzlWMzkuMmEyNC40OSwyNC40OSwwLDAsMC0xLjc3LTkuNDYsMjEsMjEsMCwwLDAtNS4wOS03LjM1LDIyLjkzLDIyLjkzLDAsMCwwLTguMDctNC43NkEzMi4zNywzMi4zNywwLDAsMCwzMDAuNjUsMTZIMjY5LjE4Vjc5LjgySDI4NFY2M2gxNS4yNGEzNi42NywzNi42NywwLDAsMCwxMC42MS0xLjQ5LDI1LjEyLDI1LjEyLDAsMCwwLDguNjUtNC40NywyMSwyMSwwLDAsMCw1LjgxLTcuMzksMjMuNTYsMjMuNTYsMCwwLDAsMi4xMS0xMC4yOFptLTE1LC4yOWE5LjYxLDkuNjEsMCwwLDEtMy4wOCw3LjI1Yy0yLDItNC45MywyLjkzLTguNjQsMi45M0gyODRWMjkuMzFIMjk5LjRxNS41OCwwLDguNzksMi41OXQzLjIyLDcuNTl2LjE5Wm0zOC40Myw0MC4xNFYxNC43aC0xNC42Vjc5LjgyWm02My4yOCwwVjI3LjUyaC0xNC42VjU3YzAsNi00LDExLjcyLTEwLjQxLDExLjcyLTcuNjMsMC0xMC41NS01Ljg0LTEwLjU1LTExLjcyVjI3LjUySDM2M1Y2MS42NmMwLDExLjIzLDguNjksMTkuMTIsMjAuNDgsMTkuMTIsNi42MywwLDExLjIxLTMuMiwxNS4wOC04LjMzdjcuMzdabTk1LjUyLDBWNDYuMjljMC0xMS4zNS04LjMzLTIwLjA4LTIwLjIzLTIwLjA4LTcsMC0xMi4zLDQtMTYuNzUsOS4zOS0yLjg5LTUuNzItMTAtOS4zOS0xNi4yMS05LjM5LTYuNywwLTExLjEyLDIuNDItMTQuNzgsNy44NlYyNy41MmgtMTQuNnY1Mi4zaDE0LjZWNTEuMTZjMC01LjgyLDEuODktMTIuMTksOS43MS0xMi4xOXM5LjU1LDYuNDYsOS41NSwxMi4xOVY3OS44MmgxNC42VjUxLjE2YzAtNS44MiwyLjI3LTEyLjE5LDEwLTEyLjE5UzQ5NCw0NS40Myw0OTQsNTEuMTZWNzkuODJaIi8+PHBhdGggY2xhc3M9ImNscy0xIiBkPSJNMTkxLjYyLDE5YTguNjgsOC42OCwwLDEsMC04LjY4LTguNjhBOC43LDguNywwLDAsMCwxOTEuNjIsMTlaIi8+PC9nPjwvZz48L3N2Zz4="
+            />
+          </center>
+          <br />
+          <h1>AICLOUD 4.0</h1>
+          <br />
+          <br />
+        </div>
+      </div>
+    </div>
+
+    <div class="testarea">
+      <textarea type="text" id="testcaseinput"> </textarea><br /><br />
+    </div>
+    <div class="select">
+      <label for="Status">Choose a Status:</label>
+
+      <select name="Status" id="statusinput">
+        <option value="pending">pending</option>
+        <option value="in progress">in progress</option>
+        <option value="completed">completed</option>
+      </select>
+    </div>
+    <div class="button">
+      <button onclick="addData()">Add to CSV</button>
+      <button onclick="downloadCSV()">Download CSV</button>
+      <button onclick="clearCSVData()">Clear CSV Data</button>
+    </div>
+    <!-- New button -->
+
+    <div class="view" style="margin-top: 50px">
+      <h2>View Data</h2>
+      <div id="viewData"></div>
+    </div>
+
+    <script>
+      window.onbeforeunload = function () {
+        saveData();
+      };
+      let displayedData = [];
+      loadSavedData(); // Load saved data when the page loads
+
+      function addData() {
+        const testCase = document.getElementById("testcaseinput").value;
+        const status = document.getElementById("statusinput").value;
+
+        if (testCase.trim() !== "") {
+          const slno = displayedData.length + 1; // Auto-generate serial number
+          const newData = `${slno},${testCase},${status}`;
+          displayedData.push(newData);
+          saveData(); // Save the data to local storage after adding
+          clearInputs();
+          updateView();
+        } else {
+          alert("Please fill in the Testcase field.");
+        }
+      }
+
+      function updateView() {
+        let tableContent = `<div class="table">
+      <table id="customers">
+        <tr>
+          <th style="width:40px; font-size: 14px;">Number</th>
+          <th style="font-size: 16px;">Testcase</th>
+          <th style="width:200px;font-size: 14px;">Status</th>
+          <th style="width:100px;font-size: 14px;">Actions</th>
+        </tr>`;
+
+        displayedData.forEach((data, index) => {
+          const [slno, testCase, status] = data.split(",");
+          tableContent += `<tr>
+      <td>${index + 1}</td>
+      <td>${testCase}</td>
+      <td style="text-align: center;" id="status_${index}">${status}</td>
+      <td style="text-align: center;"><button onclick="editStatus(${index})">Edit</button></td>
+    </tr>`;
+        });
+
+        tableContent += `</table></div>`;
+        document.getElementById("viewData").innerHTML = tableContent;
+      }
+
+      function editStatus(index) {
+        let newStatus = prompt("Enter the new status:");
+        if (newStatus !== null && newStatus.trim() !== "") {
+          document.getElementById(`status_${index}`).innerText = newStatus;
+        } else if (newStatus !== null && newStatus.trim() === "") {
+          alert("Status cannot be blank. Please enter a valid status.");
+        }
+      }
+
+      function saveData() {
+        localStorage.setItem("csvData", JSON.stringify(displayedData));
+      }
+      function loadSavedData() {
+        const savedData = localStorage.getItem("csvData");
+        if (savedData) {
+          displayedData = JSON.parse(savedData);
+          updateView();
+        }
+      }
+      function clearInputs() {
+        document.getElementById("testcaseinput").value = "";
+        document.getElementById("statusinput").value = "";
+      }
+
+      function downloadCSV() {
+        let csvContent = "Number,Testcase,Status\n"; // Add table headers
+
+        displayedData.forEach((data) => {
+          csvContent += data + "\n";
+        });
+
+        const encodedUri = encodeURI(
+          "data:text/csv;charset=utf-8," + csvContent
+        );
+        const link = document.createElement("a");
+        link.setAttribute("href", encodedUri);
+        link.setAttribute("download", "data.csv");
+        document.body.appendChild(link);
+        link.click();
+      }
+
+      function clearCSVData() {
+        displayedData = []; // Clear displayed data array
+        saveData(); // Update localStorage with cleared data
+        updateView(); // Update the displayed table (empty now)
+      }
+    </script>
+  </body>
+</html>
